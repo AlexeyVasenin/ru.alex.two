@@ -19,7 +19,7 @@ public class MainController {
         return products;
     }
 
-    @PostMapping(value = "hello")
+    @PostMapping(value = "/hello")
     public String creatProduct() {
         return "Product is saved successfully";
     }
