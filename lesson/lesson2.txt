@@ -1,0 +1,51 @@
+--------lesson2-------
+* Подлючить liquebase
+* Создать базу данных без табличек
+* Подлючить JDBC & JPA
+* Созать changeSET на создание таблиц
+* Предметная область - онлайн заказ food
+------------table_1-----------------------
+* User (
+        id(type serial)(f)
+        name(type String)(50)
+        number(type String)(15)
+        idd(type Integer)
+        )
+------------------------------------------
+------------table_2------------------------
+* Price (
+         id(type serial)(f)
+         idd(type Integer)
+         isActual(boolean)
+         name(type String)(15)
+         cost(double)
+         weight(Integer)
+         type_id(id Integer)
+         description(String)(255)
+         )
+-------------------------------------------
+---------table_3---------------------------
+* Types(
+        id(serial)(f)
+        name(String)(u)
+        )
+---------------------------------------------
+--------table_4------------------------------
+* orders(
+        id(Integer)(f)
+        idd(integer)
+        id_user(integer)
+        id_prices(integer)
+        count(integer)
+        sum_prices(double)
+        cost(double)
+        address(String)(255)
+        date_create(date)
+        date_close(date)
+        )
+
+
+* Создать классы по таблицам (DTO)
+* ^____^)
+
+
