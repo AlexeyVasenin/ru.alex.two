@@ -2,27 +2,126 @@ databaseChamgeLog:
   - logicaFilePath: db/changelog.yaml
   - changeSet:
       id: 1
-  author: your_liquibase_username
-  changes:
-    - createTable:
-        tableName: user
-        collumns:
-          - column:
-              name: id
-              type: SERIAL
-              autoIncrement: true
-              constraints:
-                primaryKey: true
-                nullable: false
-          - column:
-              name: name
-              type: varchar(50)
-          - column:
-              name: number
-              type: varchar(15)
-          - column:
-              name: idd
-              type: integer
+      author: alexey
+      changes:
+        - createTable:
+            tableName: user
+            collumns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+              - column:
+                  name: number
+                  type: varchar(15)
+              - column:
+                  name: idd
+                  type: integer
+  - changeSet:
+      id: 2
+      author: alexey
+      changes:
+        - crateTable:
+            tableName: price
+            collumns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: idd
+                  type: integer
+              - column:
+                  name: isactual
+                  type: boolean
+              - column:
+                  name: name
+                  type: varchar(15)
+              - column:
+                  name: cost
+                  type: double
+              - column:
+                  name: weight
+                  type: integer
+              - column:
+                  name: type_id
+                  type: integer
+              - column:
+                  name: description
+                  type: varchar(255)
+  - changeSet:
+      id: 3
+      author: alexey
+      changes:
+        - createTable:
+            tableName: types
+            collumns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  unique: true
+  - changeSet:
+      id: 4
+      author: alexey
+      changes:
+        - createTable:
+            tableName: orgers
+            collumns:
+              - column:
+                  name: id
+                  type: integer
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: id
+                  type: integer
+              - column:
+                  name: id_user
+                  type: integer
+              - column:
+                  name: id_prices
+                  type: integer
+              - column:
+                  name: count
+                  type: integer
+              - column:
+                  name: sum prices
+                  type: double
+              - column:
+                  name: cost
+                  type: dounle
+              - column:
+                  name: address
+                  type: varchar(255)
+              - column:
+                  name: data_create
+                  type: date
+              - column:
+                  name: data_close
+                  type: date
+
+
+
+
+
+
 
 
 

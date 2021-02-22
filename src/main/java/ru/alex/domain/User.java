@@ -1,12 +1,13 @@
 package ru.alex.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name= "user")
-public class User  {
+public class User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -18,6 +19,10 @@ public class User  {
 
     @Column(name = "idd")
     private Integer idd;
+
+    public User() {
+
+    }
 
     public Long getId() {
         return id;
