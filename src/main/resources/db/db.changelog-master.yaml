@@ -1,12 +1,14 @@
-databaseChamgeLog:
-  - logicaFilePath: db/changelog.yaml
+databaseChangeLog:
+
+
+  - logicalFilePath: db/db.changelog.yaml
   - changeSet:
       id: 1
       author: alexey
       changes:
         - createTable:
             tableName: user
-            collumns:
+            columns:
               - column:
                   name: id
                   type: serial
@@ -27,9 +29,9 @@ databaseChamgeLog:
       id: 2
       author: alexey
       changes:
-        - crateTable:
+        - createTable:
             tableName: price
-            collumns:
+            columns:
               - column:
                   name: id
                   type: serial
@@ -64,7 +66,7 @@ databaseChamgeLog:
       changes:
         - createTable:
             tableName: types
-            collumns:
+            columns:
               - column:
                   name: id
                   type: serial
@@ -75,14 +77,15 @@ databaseChamgeLog:
               - column:
                   name: name
                   type: varchar(50)
-                  unique: true
+                  constraints:
+                    unique: true
   - changeSet:
       id: 4
       author: alexey
       changes:
         - createTable:
             tableName: orgers
-            collumns:
+            columns:
               - column:
                   name: id
                   type: integer
@@ -90,7 +93,7 @@ databaseChamgeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: id
+                  name: idd
                   type: integer
               - column:
                   name: id_user
@@ -106,7 +109,7 @@ databaseChamgeLog:
                   type: double
               - column:
                   name: cost
-                  type: dounle
+                  type: double
               - column:
                   name: address
                   type: varchar(255)
