@@ -7,8 +7,8 @@
 ------------table_1-----------------------
 * User (
         id(type serial)(f)
-        name(type String)(50)
-        number(type String)(15)
+        name(varchar(50))
+        number(varchar(15))
         idd(type Integer)
         )
 ------------------------------------------
@@ -17,17 +17,17 @@
          id(type serial)(f)
          idd(type Integer)
          isActual(boolean)
-         name(type String)(15)
+         name(varchar(15))
          cost(double)
          weight(Integer)
          type_id(id Integer)
-         description(String)(255)
+         description(varchar(255))
          )
 -------------------------------------------
 ---------table_3---------------------------
 * Types(
         id(serial)(f)
-        name(String)(u)
+        name(varchar(50))(u)
         )
 ---------------------------------------------
 --------table_4------------------------------
@@ -39,12 +39,11 @@
         count(integer)
         sum_prices(double)
         cost(double)
-        address(String)(255)
+        address(varchar(255))
         date_create(date)
         date_close(date)
         )
-
-
+---------------------------------------------
 * Создать классы по таблицам (DTO)
 * ^____^)
 

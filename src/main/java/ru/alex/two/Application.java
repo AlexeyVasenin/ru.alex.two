@@ -1,4 +1,4 @@
-package ru.alex;
+package ru.alex.two;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

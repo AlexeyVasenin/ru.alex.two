@@ -1,4 +1,4 @@
-package ru.alex.domain;
+package ru.alex.two.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;

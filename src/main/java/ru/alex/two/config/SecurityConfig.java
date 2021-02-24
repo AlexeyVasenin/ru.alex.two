@@ -1,4 +1,4 @@
-package ru.alex.config;
+package ru.alex.two.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,11 +18,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/", "/swagger-ui.html")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .permitAll()
                 .and()
                 .logout()
                 .permitAll();
@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     @Override
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username("admin")
                 .password("123")
