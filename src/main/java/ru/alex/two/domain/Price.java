@@ -1,5 +1,7 @@
 package ru.alex.two.domain;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +11,7 @@ public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "isactual")
     private Boolean isActual;
@@ -29,15 +31,26 @@ public class Price {
     @Column(name = "description")
     private String description;
 
-    public Price(){
+    public Price(Long id, Boolean isActual, String name, Double cost,
+                 Integer weight, Integer typeId, String description) {
+        this.id = id;
+        this.isActual = isActual;
+        this.name = name;
+        this.cost = cost;
+        this.weight = weight;
+        this.typeId = typeId;
+        this.description = description;
+    }
+
+    public Price() {
 
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

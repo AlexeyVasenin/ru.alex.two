@@ -1,7 +1,7 @@
 package ru.alex.two.repository;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.jpa.repository.JpaRepository;
+import ru.alex.two.domain.Types;
 
-@RestController
-public interface TypesRepository {
+public interface TypesRepository  extends JpaRepository<Types, Integer> {
 }

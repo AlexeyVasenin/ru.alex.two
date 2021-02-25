@@ -1,7 +1,7 @@
 package ru.alex.two.repository;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.jpa.repository.JpaRepository;
+import ru.alex.two.domain.Price;
 
-@RestController
-public interface PriceRepository {
+public interface PriceRepository extends JpaRepository<Price, Long> {
 }

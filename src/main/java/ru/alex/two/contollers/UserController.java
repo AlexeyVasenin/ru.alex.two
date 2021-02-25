@@ -1,27 +1,28 @@
 package ru.alex.two.contollers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.alex.two.domain.User;
 import ru.alex.two.repository.UserRepository;
-
-import java.util.List;
+import ru.alex.two.service.UserService;
 
 
 @RestController
 public class UserController {
 
-    private UserRepository userRepository;
+    private final UserService userService;
+    private final UserRepository userRepository;
 
-    @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, UserService userService) {
+        this.userService = userService;
         this.userRepository = userRepository;
-
     }
 
-    @GetMapping("/user/list")
-    public List<User> allUsers() {
-        return userRepository.findAll();
+    @PostMapping("/user")
+    public ResponseEntity<?> creat() {
+        userService.creat(user);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 }
