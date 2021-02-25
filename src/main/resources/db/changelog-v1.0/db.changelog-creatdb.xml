@@ -5,7 +5,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="240220-1" author="alexey">
+    <changeSet id="240220-1" author="alexey" runOnChange="true">
+
+        <sql splitStatements="true">
+
+        </sql>
+
         <createTable tableName="user">
             <column name="id" type="serial" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
@@ -14,9 +19,8 @@
             <column name="number" type="varchar(15)"/>
             <column name="idd" type="integer"/>
         </createTable>
-    </changeSet>
 
-    <changeSet id="240220-2" author="alexey">
+
         <createTable tableName="price">
             <column name="id" type="serial" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
@@ -29,9 +33,7 @@
             <column name="type_id" type="integer"/>
             <column name="description" type="varchar(50)"/>
         </createTable>
-    </changeSet>
 
-    <changeSet id="240220-3" author="alexey">
         <createTable tableName="types">
             <column name="id" type="serial" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -40,9 +42,7 @@
                 <constraints unique="true"/>
             </column>
         </createTable>
-    </changeSet>
 
-    <changeSet id="240220-4" author="alexey">
         <createTable tableName="orders">
             <column name="id" type="integer" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
