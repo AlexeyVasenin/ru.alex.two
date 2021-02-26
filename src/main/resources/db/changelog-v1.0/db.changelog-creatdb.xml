@@ -8,10 +8,13 @@
     <changeSet id="240220-1" author="alexey" runOnChange="true">
 
         <sql splitStatements="true">
-
+            DROP TABLE IF EXISTS "users" CASCADE;
+            DROP TABLE IF EXISTS "price" CASCADE;
+            DROP TABLE IF EXISTS "types" CASCADE;
+            DROP TABLE IF EXISTS "orders" CASCADE;
         </sql>
 
-        <createTable tableName="user">
+        <createTable tableName="users">
             <column name="id" type="serial" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>

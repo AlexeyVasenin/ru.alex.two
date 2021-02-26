@@ -1,6 +1,5 @@
 package ru.alex.two.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.alex.two.domain.User;
 import ru.alex.two.repository.UserRepository;

@@ -17,18 +17,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/user", "/swagger-ui.html")
-                .permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .and()
-                .logout()
-                .permitAll();
+                .csrf().disable();
+
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .and()
+//                .logout()
+//                .permitAll();
     }
 
-    @Bean
+  /*
+   @Bean
     @Override
     public UserDetailsService userDetailsService() {
         UserDetails user = User.withDefaultPasswordEncoder()
@@ -38,5 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .build();
         return new InMemoryUserDetailsManager(user);
     }
+    */
 
 }
