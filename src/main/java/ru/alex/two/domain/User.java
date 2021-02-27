@@ -11,7 +11,6 @@ public class User {
 
     @Id
     @Column(name = "id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

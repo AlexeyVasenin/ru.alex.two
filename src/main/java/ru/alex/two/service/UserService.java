@@ -26,7 +26,7 @@ public interface UserService {
      * @param id - ID клиента
      * @return - объект клиента с заданным ID
      */
-    User read(int id);
+    User read(Long id);
 
     /**
      * Обновляет клиента с заданным ID,

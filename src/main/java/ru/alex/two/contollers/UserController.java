@@ -20,7 +20,7 @@ public class UserController implements Serializable {
     }
 
     @PostMapping("/creat")
-    public ResponseEntity<User> create() {
+    public ResponseEntity<?> creat(@RequestBody) {
         User user = new User();
         userService.creat(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
@@ -34,8 +34,8 @@ public class UserController implements Serializable {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/user/id")
-    public ResponseEntity<User> read(Integer id) {
+    @GetMapping("/user/{id}")
+    public ResponseEntity<User> read(@RequestParam Long id) {
         User user = userService.read(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
