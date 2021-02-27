@@ -1,24 +1,48 @@
 package ru.alex.two.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
 import ru.alex.two.domain.User;
+import ru.alex.two.repository.UserRepository;
 
 import java.util.List;
 
-public interface UserService {
+
+@Service
+public class UserService {
+
+    Logger log = LogManager.getLogger(UserService.class);
+
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     /**
      * Создает нового клиента
      *
      * @param user - клиент для создания
      */
-    void creat(User user);
+
+    public void creat(User user) {
+        try {
+            userRepository.save(user);
+        } catch (Exception ex) {
+            log.error(ex);
+        }
+    }
 
     /**
      * Возвращает список всех имеющихся клиентов
      *
      * @return список клиентов
      */
-    List<User> readAll();
+
+    public List<User> readAll() {
+        return userRepository.findAll();
+    }
 
     /**
      * Возвращает клиента по его ID
@@ -26,7 +50,11 @@ public interface UserService {
      * @param id - ID клиента
      * @return - объект клиента с заданным ID
      */
-    User read(Long id);
+
+
+    public User read(Long id) {
+        return userRepository.getOne(id);
+    }
 
     /**
      * Обновляет клиента с заданным ID,
@@ -37,7 +65,14 @@ public interface UserService {
      * @return - true если данные были обновлены, иначе false
      */
 
-    Boolean update(User user, int id);
+    public Boolean update(User user, Long id) {
+        if (userRepository.existsById(id)) {
+            user.setId(id);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Удаляет клиента с заданным ID
@@ -45,5 +80,17 @@ public interface UserService {
      * @param id - id клиента, которого нужно удалить
      * @return - true если клиент был удален, иначе false
      */
-    Boolean delete(int id);
+
+    public Boolean delete(Long id) {
+        try {
+            if (userRepository.existsById(id)) {
+                userRepository.deleteById(id);
+                return true;
+            }
+
+        } catch (Exception ex) {
+            log.error(ex);
+        }
+        return false;
+    }
 }

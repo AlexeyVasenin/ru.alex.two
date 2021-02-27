@@ -23,6 +23,11 @@ public class User {
     @Column(name = "idd")
     private Integer idd;
 
+    public User(String name, String number) {
+        this.name = name;
+        this.number = number;
+    }
+
     public User() {
 
     }

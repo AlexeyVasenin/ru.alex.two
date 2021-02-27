@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import ru.alex.two.domain.User;
 import ru.alex.two.service.UserService;
 
-import java.io.Serializable;
 import java.util.List;
 
 
 @RestController
-public class UserController implements Serializable {
+@RequestMapping("/two")
+public class UserController {
 
     private final UserService userService;
 
@@ -20,22 +20,22 @@ public class UserController implements Serializable {
     }
 
     @PostMapping("/creat")
-    public ResponseEntity<?> creat(@RequestBody) {
-        User user = new User();
+    public void creat(@RequestHeader String name,
+                      @RequestHeader String number) {
+        User user = new User(name, number);
         userService.creat(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> read() {
+    @GetMapping("/list")
+    public ResponseEntity<List<User>> readAll() {
         final List<User> users = userService.readAll();
         return users != null && !users.isEmpty()
                 ? new ResponseEntity<>(users, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<User> read(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<User> readOne(@RequestParam Long id) {
         User user = userService.read(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
