@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> readOne(@RequestParam Long id) {
+    public ResponseEntity<User> readOne(@PathVariable Long id) {
         User user = userService.read(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
