@@ -23,7 +23,7 @@ public class UserService {
     /**
      * Создает нового клиента
      *
-     * @param user - клиент для создания
+     * @param user клиент для создания
      */
 
     public void creat(User user) {
@@ -31,6 +31,7 @@ public class UserService {
             userRepository.save(user);
         } catch (Exception ex) {
             log.error(ex);
+            log.error("Ошибка, проверте введные данные клиента");
         }
     }
 
@@ -47,22 +48,29 @@ public class UserService {
     /**
      * Возвращает клиента по его ID
      *
-     * @param id - ID клиента
-     * @return - объект клиента с заданным ID
+     * @param id ID клиента
+     * @return объект клиента с заданным ID
      */
 
 
     public User read(Long id) {
-        return userRepository.getOne(id);
+        try {
+            return userRepository.getOne(id);
+        } catch (Exception ex) {
+            log.error(ex);
+            log.error("Такого пользователя не существует, проверте введные " +
+                    "данные");
+        }
+        return null;
     }
 
     /**
      * Обновляет клиента с заданным ID,
      * в соответствии с переданным клиентом
      *
-     * @param user - клиент в соответсвии с которым нужно обновить данные
-     * @param id   - id клиента которого нужно обновить
-     * @return - true если данные были обновлены, иначе false
+     * @param user клиент в соответсвии с которым нужно обновить данные
+     * @param id   id клиента которого нужно обновить
+     * @return true если данные были обновлены, иначе false
      */
 
     public Boolean update(User user, Long id) {
@@ -77,8 +85,8 @@ public class UserService {
     /**
      * Удаляет клиента с заданным ID
      *
-     * @param id - id клиента, которого нужно удалить
-     * @return - true если клиент был удален, иначе false
+     * @param id id клиента, которого нужно удалить
+     * @return true если клиент был удален, иначе false
      */
 
     public Boolean delete(Long id) {

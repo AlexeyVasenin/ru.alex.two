@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.alex.two.domain.User;
 import ru.alex.two.service.UserService;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 
@@ -34,8 +35,8 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> readOne(@PathVariable Long id) {
+    @GetMapping("/user/{id}")
+    public ResponseEntity<User> readOne(@PathParam("id") Long id) {
         User user = userService.read(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
