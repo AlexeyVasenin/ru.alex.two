@@ -5,8 +5,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "types")
 public class Types {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 

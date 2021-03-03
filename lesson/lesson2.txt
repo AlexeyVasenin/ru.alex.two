@@ -36,7 +36,7 @@
         idd(integer)
         id_user(integer)
         id_prices(integer)
-        count(integer)
+        count(integer)(количество позиции)
         sum_prices(double)
         cost(double)
         address(varchar(255))

@@ -36,9 +36,29 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<User> readOne(@PathParam("id") Long id) {
+    public ResponseEntity<User> read(@PathParam("id") Long id) {
         User user = userService.read(id);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
     }
 
+    @PutMapping("/user/{id}")
+    public ResponseEntity<User> update(@RequestBody User user,
+                                       @PathVariable("id") Long id) {
+        Boolean updateUser = userService.update(user, id);
+        if (updateUser == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(user);
+        }
+    }
+
+    @DeleteMapping("user/{id}")
+    public ResponseEntity<Object> delete(@PathParam("id") Long id){
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

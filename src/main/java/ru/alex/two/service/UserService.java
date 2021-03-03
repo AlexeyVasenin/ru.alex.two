@@ -89,16 +89,13 @@ public class UserService {
      * @return true если клиент был удален, иначе false
      */
 
-    public Boolean delete(Long id) {
+    public void delete(Long id) {
         try {
             if (userRepository.existsById(id)) {
                 userRepository.deleteById(id);
-                return true;
             }
-
         } catch (Exception ex) {
             log.error(ex);
         }
-        return false;
     }
 }

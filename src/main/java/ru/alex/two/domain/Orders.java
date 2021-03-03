@@ -6,8 +6,9 @@ import java.util.Date;
 @Entity
 @Table(name = "orders")
 public class Orders {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -37,6 +38,16 @@ public class Orders {
 
     @Column(name = "date_close")
     private Date dateСlose;
+
+    public Orders(Integer count, Double sumPrices, Double cost,
+                  String address, Date dateCreate, Date dateСlose) {
+        this.count = count;
+        this.sumPrices = sumPrices;
+        this.cost = cost;
+        this.address = address;
+        this.dateCreate = dateCreate;
+        this.dateСlose = dateСlose;
+    }
 
     public Orders(){
 
@@ -114,11 +125,11 @@ public class Orders {
         this.dateCreate = dateCreate;
     }
 
-    public Date getDate_close() {
+    public Date getDateСlose() {
         return dateСlose;
     }
 
-    public void setDate_close(Date dateСlose) {
+    public void setDateСlose(Date dateСlose) {
         this.dateСlose = dateСlose;
     }
 }
