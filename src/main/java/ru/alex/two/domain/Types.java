@@ -18,6 +18,9 @@ public class Types {
         this.name = name;
     }
 
+    public Types() {
+    }
+
     public Long getId() {
         return id;
     }
