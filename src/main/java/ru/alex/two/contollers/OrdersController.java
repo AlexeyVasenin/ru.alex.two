@@ -1,15 +1,14 @@
 package ru.alex.two.contollers;
 
 import org.springframework.web.bind.annotation.RestController;
-import ru.alex.two.repository.OrdersRepository;
+import ru.alex.two.service.OrdersService;
 
 @RestController
 public class OrdersController {
 
-    private final OrdersRepository ordersRepository;
+    private final OrdersService ordersService;
 
-
-    public OrdersController(OrdersRepository ordersRepository) {
-        this.ordersRepository = ordersRepository;
+    public OrdersController(OrdersService ordersService) {
+        this.ordersService = ordersService;
     }
 }

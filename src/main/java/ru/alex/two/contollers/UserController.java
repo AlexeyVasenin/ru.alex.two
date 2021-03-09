@@ -20,14 +20,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/creat")
+    @PostMapping("/user/creat")
     public void creat(@RequestHeader String name,
                       @RequestHeader String number) {
         User user = new User(name, number);
         userService.creat(user);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/user/list")
     public ResponseEntity<List<User>> readAll() {
         final List<User> users = userService.readAll();
         return users != null && !users.isEmpty()
@@ -47,7 +47,7 @@ public class UserController {
 
     @PutMapping("/user/{id}")
     public ResponseEntity<User> update(@RequestBody User user,
-                                       @PathVariable("id") Long id) {
+                                       @PathParam("id") Long id) {
         Boolean updateUser = userService.update(user, id);
         if (updateUser == null) {
             return ResponseEntity.notFound().build();

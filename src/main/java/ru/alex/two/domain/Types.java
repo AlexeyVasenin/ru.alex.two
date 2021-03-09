@@ -14,8 +14,8 @@ public class Types {
     @Column(name = "name", unique = true)
     private String name;
 
-    public  Types(){
-
+    public Types(String name) {
+        this.name = name;
     }
 
     public Long getId() {
