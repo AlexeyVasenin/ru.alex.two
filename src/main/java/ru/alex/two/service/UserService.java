@@ -8,7 +8,6 @@ import ru.alex.two.repository.UserRepository;
 
 import java.util.List;
 
-
 @Service
 public class UserService {
 

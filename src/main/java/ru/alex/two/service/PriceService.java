@@ -7,6 +7,7 @@ import ru.alex.two.domain.Price;
 import ru.alex.two.repository.PriceRepository;
 
 import java.util.List;
+
 @Service
 public class PriceService {
 
@@ -28,12 +29,7 @@ public class PriceService {
     }
 
     public List<Price> readAll() {
-        try {
-            return priceRepository.findAll();
-        } catch (Exception ex) {
-            log.error(ex);
-        }
-        return null;
+        return priceRepository.findAll();
     }
 
     public Price read(Long id) {
@@ -50,6 +46,7 @@ public class PriceService {
             price.setId(id);
             priceRepository.save(price);
             return true;
+
         }
         return false;
     }
