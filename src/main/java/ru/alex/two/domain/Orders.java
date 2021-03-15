@@ -49,7 +49,7 @@ public class Orders {
         this.dateСlose = dateСlose;
     }
 
-    public Orders(){
+    public Orders(String address) {
 
     }
 

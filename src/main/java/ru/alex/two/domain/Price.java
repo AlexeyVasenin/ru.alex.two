@@ -30,11 +30,12 @@ public class Price {
     private String description;
 
     public Price(Boolean isActual, String name, Double cost,
-                 Integer weight, String description) {
+                 Integer weight, Integer typeId, String description) {
         this.isActual = isActual;
         this.name = name;
         this.cost = cost;
         this.weight = weight;
+        this.typeId = typeId;
         this.description = description;
     }
 

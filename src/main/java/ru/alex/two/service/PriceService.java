@@ -24,7 +24,6 @@ public class PriceService {
             priceRepository.save(price);
         } catch (Exception ex) {
             log.error(ex);
-            log.error("hfsjkdfhsk");
         }
     }
 

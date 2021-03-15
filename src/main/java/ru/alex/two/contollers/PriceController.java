@@ -11,7 +11,6 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/two")
 public class PriceController {
 
     final
@@ -26,8 +25,10 @@ public class PriceController {
                       @RequestHeader String name,
                       @RequestHeader Double cost,
                       @RequestHeader Integer weigth,
+                      @RequestHeader Integer typeId,
                       @RequestHeader String description) {
-        Price price = new Price(isActual, name, cost, weigth, description);
+        Price price = new Price(isActual, name, cost, weigth, typeId,
+                description);
         priceService.creat(price);
     }
 

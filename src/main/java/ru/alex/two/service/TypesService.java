@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import ru.alex.two.domain.Types;
 import ru.alex.two.repository.TypesRepository;
 
+import java.util.List;
+
 @Service
 public class TypesService {
 
@@ -23,6 +25,14 @@ public class TypesService {
         } catch (Exception ex) {
             log.error(ex);
         }
+    }
+
+    public List<Types> readAll() {
+        return typesRepository.findAll();
+    }
+
+    public Types read(Long id) {
+        return typesRepository.getOne(id);
     }
 
     public Boolean update(Types types, Long id) {

@@ -11,7 +11,6 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/two")
 public class UserController {
 
     private final UserService userService;
@@ -20,7 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/user/creat")
+   @PostMapping("/registration")
     public void creat(@RequestHeader String name,
                       @RequestHeader String number) {
         User user = new User(name, number);
@@ -57,7 +56,7 @@ public class UserController {
     }
 
     @DeleteMapping("user/{id}")
-    public ResponseEntity<Object> delete(@PathParam("id") Long id){
+    public ResponseEntity<Object> delete(@PathParam("id") Long id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
