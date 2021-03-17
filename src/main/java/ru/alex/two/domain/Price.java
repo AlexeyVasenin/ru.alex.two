@@ -40,7 +40,6 @@ public class Price {
     }
 
     public Price() {
-
     }
 
     public Long getId() {

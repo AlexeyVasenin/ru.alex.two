@@ -44,7 +44,7 @@ public class Orders {
         this.dateCreate = dateCreate;
     }
 
-    public Orders(String address) {
+    public Orders() {
 
     }
 

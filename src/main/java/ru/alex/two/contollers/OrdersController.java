@@ -20,7 +20,7 @@ public class OrdersController {
     }
 
     @PostMapping("add")
-    public void creat(@RequestParam String address) {
+    public void add(@RequestParam String address) {
 
         Date creatDate = new Date();
 
