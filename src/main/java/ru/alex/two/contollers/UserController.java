@@ -2,6 +2,7 @@ package ru.alex.two.contollers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.two.domain.User;
 import ru.alex.two.service.UserService;
@@ -10,7 +11,7 @@ import javax.websocket.server.PathParam;
 import java.util.List;
 
 
-@RestController
+@Controller
 public class UserController {
 
     private final UserService userService;
@@ -19,11 +20,18 @@ public class UserController {
         this.userService = userService;
     }
 
-   @PostMapping("/registration")
-    public void creat(@RequestHeader String name,
-                      @RequestHeader String number) {
+    @GetMapping("/registration")
+    public String registration() {
+        return "/registration";
+    }
+
+    @PostMapping("/registration")
+    public String registration(@RequestParam String name,
+                               @RequestParam String number) {
         User user = new User(name, number);
         userService.creat(user);
+
+        return "redirect:/login";
     }
 
     @GetMapping("/user/list")
@@ -35,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<User> read(@PathParam("id") Long id) {
+    public ResponseEntity<User> read(@PathVariable("id") Long id) {
         User user = userService.read(id);
         if (user == null) {
             return ResponseEntity.notFound().build();
@@ -46,7 +54,7 @@ public class UserController {
 
     @PutMapping("/user/{id}")
     public ResponseEntity<User> update(@RequestBody User user,
-                                       @PathParam("id") Long id) {
+                                       @PathVariable("id") Long id) {
         Boolean updateUser = userService.update(user, id);
         if (updateUser == null) {
             return ResponseEntity.notFound().build();
@@ -56,7 +64,7 @@ public class UserController {
     }
 
     @DeleteMapping("user/{id}")
-    public ResponseEntity<Object> delete(@PathParam("id") Long id) {
+    public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
