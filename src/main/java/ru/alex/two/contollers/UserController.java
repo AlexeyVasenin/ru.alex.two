@@ -7,11 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import ru.alex.two.domain.User;
 import ru.alex.two.service.UserService;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 
-@Controller
+@RestController
 public class UserController {
 
     private final UserService userService;
@@ -26,12 +25,10 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registration(@RequestParam String name,
-                               @RequestParam String number) {
+    public void registration(@RequestParam String name,
+                             @RequestParam String number) {
         User user = new User(name, number);
         userService.creat(user);
-
-        return "redirect:/login";
     }
 
     @GetMapping("/user/list")

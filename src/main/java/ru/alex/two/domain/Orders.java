@@ -39,9 +39,14 @@ public class Orders {
     @Column(name = "date_close")
     private Date dateСlose;
 
-    public Orders(String address, Date dateCreate) {
+    public Orders(Integer count, Double sumPrices, Double cost,
+                  String address, Date dateCreate, Date dateСlose) {
+        this.count = count;
+        this.sumPrices = sumPrices;
+        this.cost = cost;
         this.address = address;
         this.dateCreate = dateCreate;
+        this.dateСlose = dateСlose;
     }
 
     public Orders() {
