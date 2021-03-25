@@ -1,11 +1,13 @@
 package ru.alex.two.contollers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.two.domain.Orders;
 import ru.alex.two.service.OrdersService;
 
 import java.util.Date;
+import java.util.List;
 
 
 @RestController
@@ -29,6 +31,14 @@ public class OrdersController {
         Orders order = new Orders(count, sumPrices, cost, address, dateCreate,
                 dateClose);
         ordersService.creat(order);
+    }
+
+    @GetMapping("/orders/list")
+    public ResponseEntity<List<Orders>> readAll() {
+        final List<Orders> orders = ordersService.readAll();
+        return orders != null && !orders.isEmpty()
+                ? new ResponseEntity<>(orders, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/orders/{id}")

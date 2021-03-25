@@ -2,7 +2,6 @@ package ru.alex.two.contollers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.two.domain.User;
 import ru.alex.two.service.UserService;
