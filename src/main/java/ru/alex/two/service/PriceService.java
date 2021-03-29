@@ -40,7 +40,7 @@ public class PriceService {
         return null;
     }
 
-    public Boolean update(Price price, Long id) {
+    public Boolean update(Long id, Price price) {
         if (priceRepository.existsById(id)) {
             price.setId(id);
             priceRepository.save(price);

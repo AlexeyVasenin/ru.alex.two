@@ -41,7 +41,7 @@ public class OrdersService {
         return null;
     }
 
-    public Boolean update(Orders orders, Long id) {
+    public Boolean update(Long id, Orders orders) {
         if (ordersRepository.existsById(id)) {
             orders.setId(id);
             ordersRepository.save(orders);

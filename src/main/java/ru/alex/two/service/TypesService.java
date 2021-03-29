@@ -35,7 +35,7 @@ public class TypesService {
         return typesRepository.getOne(id);
     }
 
-    public Boolean update(Types types, Long id) {
+    public Boolean update(Long id, Types types) {
         if (typesRepository.existsById(id)) {
             types.setId(id);
             typesRepository.save(types);

@@ -20,9 +20,19 @@ public class TypesController {
     }
 
     @PostMapping("/types/creat")
-    public void creat(@RequestHeader String name) {
+    public void creat(@RequestParam String name) {
         Types types = new Types(name);
         typesService.creat(types);
+    }
+
+    @GetMapping("types/{id}")
+    public ResponseEntity<Types> read(@PathVariable("id") Long id) {
+        Types types = typesService.read(id);
+        if (types == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return new ResponseEntity<>(types, HttpStatus.OK);
+        }
     }
 
     @GetMapping("types/list")
@@ -33,20 +43,10 @@ public class TypesController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("types/{id}")
-    public ResponseEntity<Types> read(@PathParam("id") Long id) {
-        Types types = typesService.read(id);
-        if (types == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return new ResponseEntity<>(types, HttpStatus.OK);
-        }
-    }
-
     @PutMapping("types/{id}")
-    public ResponseEntity<Types> update(@RequestBody Types types,
-                                        @PathParam("id") Long id) {
-        Boolean updateTypes = typesService.update(types, id);
+    public ResponseEntity<Types> update(@PathVariable("id") Long id,
+                                        @RequestBody Types types) {
+        Boolean updateTypes = typesService.update(id, types);
         if (updateTypes == null) {
             return ResponseEntity.notFound().build();
         } else {

@@ -67,12 +67,12 @@ public class UserService {
      * Обновляет клиента с заданным ID,
      * в соответствии с переданным клиентом
      *
-     * @param user клиент в соответсвии с которым нужно обновить данные
      * @param id   id клиента которого нужно обновить
+     * @param user клиент в соответсвии с которым нужно обновить данные
      * @return true если данные были обновлены, иначе false
      */
 
-    public Boolean update(User user, Long id) {
+    public Boolean update(Long id, User user) {
         if (userRepository.existsById(id)) {
             user.setId(id);
             userRepository.save(user);

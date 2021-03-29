@@ -21,19 +21,19 @@ public class PriceController {
     }
 
     @PostMapping("/price/creat")
-    public void creat(@RequestHeader Boolean isActual,
-                      @RequestHeader String name,
-                      @RequestHeader Double cost,
-                      @RequestHeader Integer weigth,
-                      @RequestHeader Integer typeId,
-                      @RequestHeader String description) {
+    public void creat(@RequestParam Boolean isActual,
+                      @RequestParam String name,
+                      @RequestParam Double cost,
+                      @RequestParam Integer weigth,
+                      @RequestParam Integer typeId,
+                      @RequestParam String description) {
         Price price = new Price(isActual, name, cost, weigth, typeId,
                 description);
         priceService.creat(price);
     }
 
     @GetMapping("/price/{id}")
-    public ResponseEntity<Price> read(@PathParam("id") Long id) {
+    public ResponseEntity<Price> read(@PathVariable("id") Long id) {
         Price price = priceService.read(id);
         if (price == null) {
             return ResponseEntity.notFound().build();
@@ -51,9 +51,9 @@ public class PriceController {
     }
 
     @PutMapping("/price/{id}")
-    public ResponseEntity<Price> update(@RequestBody Price price,
-                                        @PathParam("id") Long id) {
-        Boolean updatePrice = priceService.update(price, id);
+    public ResponseEntity<Price> update(@PathVariable("id") Long id,
+                                        @RequestBody Price price) {
+        Boolean updatePrice = priceService.update(id, price);
         if (updatePrice == null) {
             return ResponseEntity.notFound().build();
         } else {

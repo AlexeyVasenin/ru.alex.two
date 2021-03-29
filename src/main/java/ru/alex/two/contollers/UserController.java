@@ -18,24 +18,11 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/registration")
-    public String registration() {
-        return "/registration";
-    }
-
     @PostMapping("/registration")
     public void registration(@RequestParam String name,
                              @RequestParam String number) {
         User user = new User(name, number);
         userService.creat(user);
-    }
-
-    @GetMapping("/user/list")
-    public ResponseEntity<List<User>> readAll() {
-        final List<User> users = userService.readAll();
-        return users != null && !users.isEmpty()
-                ? new ResponseEntity<>(users, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/user/{id}")
@@ -48,10 +35,19 @@ public class UserController {
         }
     }
 
+    @GetMapping("/user/list")
+    public ResponseEntity<List<User>> readAll() {
+        final List<User> users = userService.readAll();
+        return users != null && !users.isEmpty()
+                ? new ResponseEntity<>(users, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
     @PutMapping("/user/{id}")
-    public ResponseEntity<User> update(@RequestBody User user,
-                                       @PathVariable("id") Long id) {
-        Boolean updateUser = userService.update(user, id);
+    public ResponseEntity<User> update(@PathVariable("id") Long id,
+                                       @RequestBody User user) {
+        Boolean updateUser = userService.update(id, user);
         if (updateUser == null) {
             return ResponseEntity.notFound().build();
         } else {
