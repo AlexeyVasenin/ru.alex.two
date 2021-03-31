@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/cafe")
 public class UserController {
 
     private final UserService userService;
@@ -18,11 +19,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/registration")
-    public void registration(@RequestParam String name,
-                             @RequestParam String number) {
-        User user = new User(name, number);
-        userService.creat(user);
+    @GetMapping("/user")
+    public ResponseEntity<List<User>> readAll() {
+        final List<User> users = userService.readAll();
+        return users != null && !users.isEmpty()
+                ? new ResponseEntity<>(users, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/user/{id}")
@@ -35,12 +37,11 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/list")
-    public ResponseEntity<List<User>> readAll() {
-        final List<User> users = userService.readAll();
-        return users != null && !users.isEmpty()
-                ? new ResponseEntity<>(users, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PostMapping("/user")
+    public void registration(@RequestParam String name,
+                             @RequestParam String number) {
+        User user = new User(name, number);
+        userService.creat(user);
     }
 
 

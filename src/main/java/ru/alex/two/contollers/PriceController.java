@@ -11,6 +11,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/cafe")
 public class PriceController {
 
     final
@@ -20,16 +21,12 @@ public class PriceController {
         this.priceService = priceService;
     }
 
-    @PostMapping("/price/creat")
-    public void creat(@RequestParam Boolean isActual,
-                      @RequestParam String name,
-                      @RequestParam Double cost,
-                      @RequestParam Integer weigth,
-                      @RequestParam Integer typeId,
-                      @RequestParam String description) {
-        Price price = new Price(isActual, name, cost, weigth, typeId,
-                description);
-        priceService.creat(price);
+    @GetMapping("/price")
+    public ResponseEntity<List<Price>> readAll() {
+        final List<Price> priceListAll = priceService.readAll();
+        return priceListAll != null && priceListAll.isEmpty()
+                ? new ResponseEntity<>(priceListAll, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/price/{id}")
@@ -42,12 +39,16 @@ public class PriceController {
         }
     }
 
-    @GetMapping("/price/list")
-    public ResponseEntity<List<Price>> readAll() {
-        final List<Price> priceListAll = priceService.readAll();
-        return priceListAll != null && priceListAll.isEmpty()
-                ? new ResponseEntity<>(priceListAll, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PostMapping("/price")
+    public void creat(@RequestParam Boolean isActual,
+                      @RequestParam String name,
+                      @RequestParam Double cost,
+                      @RequestParam Integer weigth,
+                      @RequestParam Integer typeId,
+                      @RequestParam String description) {
+        Price price = new Price(isActual, name, cost, weigth, typeId,
+                description);
+        priceService.creat(price);
     }
 
     @PutMapping("/price/{id}")
