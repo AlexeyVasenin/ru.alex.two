@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/cafe")
+@RequestMapping("/types")
 public class TypesController {
 
     private final TypesService typesService;
@@ -19,7 +19,7 @@ public class TypesController {
         this.typesService = typesService;
     }
 
-    @GetMapping("/types")
+    @GetMapping()
     public ResponseEntity<List<Types>> readAll() {
         final List<Types> typesAll = typesService.readAll();
         return typesAll != null && typesAll.isEmpty()
@@ -27,7 +27,7 @@ public class TypesController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/types/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Types> read(@PathVariable("id") Long id) {
         Types types = typesService.read(id);
         if (types == null) {
@@ -37,7 +37,7 @@ public class TypesController {
         }
     }
 
-    @PostMapping("/types")
+    @PostMapping()
     public void creat(@RequestParam String name) {
         Types types = new Types(name);
         typesService.creat(types);

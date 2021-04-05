@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/cafe")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -19,7 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
+    @GetMapping()
     public ResponseEntity<List<User>> readAll() {
         final List<User> users = userService.readAll();
         return users != null && !users.isEmpty()
@@ -27,7 +27,7 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> read(@PathVariable("id") Long id) {
         User user = userService.read(id);
         if (user == null) {
@@ -37,7 +37,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/user")
+    @PostMapping()
     public void registration(@RequestParam String name,
                              @RequestParam String number) {
         User user = new User(name, number);
@@ -45,7 +45,7 @@ public class UserController {
     }
 
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable("id") Long id,
                                        @RequestBody User user) {
         Boolean updateUser = userService.update(id, user);
@@ -56,7 +56,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("user/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();

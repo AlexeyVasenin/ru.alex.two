@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/cafe")
+@RequestMapping("/orders")
 public class OrdersController {
 
     private final OrdersService ordersService;
@@ -20,7 +20,7 @@ public class OrdersController {
         this.ordersService = ordersService;
     }
 
-    @GetMapping("/orders")
+    @GetMapping()
     public ResponseEntity<List<Orders>> readAll() {
         final List<Orders> orders = ordersService.readAll();
         return orders != null && !orders.isEmpty()
@@ -28,7 +28,7 @@ public class OrdersController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("orders/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Orders> read(@PathVariable("id") Long id) {
         Orders orders = ordersService.read(id);
         if (orders == null) {
@@ -38,7 +38,7 @@ public class OrdersController {
         }
     }
 
-    @PostMapping("/orders")
+    @PostMapping()
     public void add(@RequestParam Integer count,
                     @RequestParam Double sumPrices,
                     @RequestParam Double cost,
@@ -53,7 +53,7 @@ public class OrdersController {
     }
 
 
-    @PutMapping("/orders/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Orders> update(@PathVariable("id") Long id,
                                          @RequestBody Orders orders) {
         Boolean updateOrders = ordersService.update(id, orders);

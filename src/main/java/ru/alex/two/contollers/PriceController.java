@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/cafe")
+@RequestMapping("/price")
 public class PriceController {
 
     final
@@ -21,7 +21,7 @@ public class PriceController {
         this.priceService = priceService;
     }
 
-    @GetMapping("/price")
+    @GetMapping()
     public ResponseEntity<List<Price>> readAll() {
         final List<Price> priceListAll = priceService.readAll();
         return priceListAll != null && priceListAll.isEmpty()
@@ -29,7 +29,7 @@ public class PriceController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/price/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Price> read(@PathVariable("id") Long id) {
         Price price = priceService.read(id);
         if (price == null) {
@@ -39,7 +39,7 @@ public class PriceController {
         }
     }
 
-    @PostMapping("/price")
+    @PostMapping()
     public void creat(@RequestParam Boolean isActual,
                       @RequestParam String name,
                       @RequestParam Double cost,
@@ -51,7 +51,7 @@ public class PriceController {
         priceService.creat(price);
     }
 
-    @PutMapping("/price/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Price> update(@PathVariable("id") Long id,
                                         @RequestBody Price price) {
         Boolean updatePrice = priceService.update(id, price);
