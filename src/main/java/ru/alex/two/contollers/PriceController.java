@@ -1,12 +1,12 @@
 package ru.alex.two.contollers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.two.domain.Price;
 import ru.alex.two.service.PriceService;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 
@@ -14,9 +14,9 @@ import java.util.List;
 @RequestMapping("/price")
 public class PriceController {
 
-    final
-    PriceService priceService;
+    final PriceService priceService;
 
+    @Autowired
     public PriceController(PriceService priceService) {
         this.priceService = priceService;
     }
@@ -40,12 +40,12 @@ public class PriceController {
     }
 
     @PostMapping()
-    public void creat(@RequestParam Boolean isActual,
-                      @RequestParam String name,
-                      @RequestParam Double cost,
-                      @RequestParam Integer weigth,
-                      @RequestParam Integer typeId,
-                      @RequestParam String description) {
+    public void creat(@RequestParam("isActual") Boolean isActual,
+                      @RequestParam("name") String name,
+                      @RequestParam("cost") Double cost,
+                      @RequestParam("weigth") Integer weigth,
+                      @RequestParam("typeId") Integer typeId,
+                      @RequestParam("description") String description) {
         Price price = new Price(isActual, name, cost, weigth, typeId,
                 description);
         priceService.creat(price);

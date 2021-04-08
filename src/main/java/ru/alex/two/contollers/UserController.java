@@ -1,5 +1,7 @@
 package ru.alex.two.contollers;
 
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +15,15 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
+
     private final UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
+    @ApiOperation(value = "Запросить всех зарегистрированых пользователей")
     @GetMapping()
     public ResponseEntity<List<User>> readAll() {
         final List<User> users = userService.readAll();
@@ -27,7 +32,8 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/{id}")
+    @ApiOperation(value = "ЗАпрос пользователя по Id")
+    @GetMapping("/user/{id}")
     public ResponseEntity<User> read(@PathVariable("id") Long id) {
         User user = userService.read(id);
         if (user == null) {
@@ -37,15 +43,16 @@ public class UserController {
         }
     }
 
-    @PostMapping()
-    public void registration(@RequestParam String name,
-                             @RequestParam String number) {
+    @ApiOperation(value = "Регистрация нового пользователя")
+    @PostMapping("/add")
+    public void registration(@RequestParam("name") String name,
+                             @RequestParam("number") String number) {
         User user = new User(name, number);
         userService.creat(user);
     }
 
-
-    @PutMapping("/{id}")
+    @ApiOperation(value = "Обновление данных пользователя")
+    @PutMapping("/update/{id}")
     public ResponseEntity<User> update(@PathVariable("id") Long id,
                                        @RequestBody User user) {
         Boolean updateUser = userService.update(id, user);
@@ -56,7 +63,8 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @ApiOperation(value = "Удалить пользователя")
+    @DeleteMapping("/del/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();

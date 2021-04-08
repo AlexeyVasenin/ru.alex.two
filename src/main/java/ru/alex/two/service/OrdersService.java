@@ -2,6 +2,7 @@ package ru.alex.two.service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.alex.two.domain.Orders;
 import ru.alex.two.repository.OrdersRepository;
@@ -11,10 +12,11 @@ import java.util.List;
 @Service
 public class OrdersService {
 
-    Logger logger = LogManager.getLogger(OrdersService.class);
+    private final Logger logger = LogManager.getLogger(OrdersService.class);
 
     private final OrdersRepository ordersRepository;
 
+    @Autowired
     public OrdersService(OrdersRepository ordersRepository) {
         this.ordersRepository = ordersRepository;
     }

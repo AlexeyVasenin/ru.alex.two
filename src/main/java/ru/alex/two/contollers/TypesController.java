@@ -1,5 +1,6 @@
 package ru.alex.two.contollers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ public class TypesController {
 
     private final TypesService typesService;
 
+    @Autowired
     public TypesController(TypesService typesService) {
         this.typesService = typesService;
     }
@@ -38,7 +40,7 @@ public class TypesController {
     }
 
     @PostMapping()
-    public void creat(@RequestParam String name) {
+    public void creat(@RequestParam("name") String name) {
         Types types = new Types(name);
         typesService.creat(types);
     }

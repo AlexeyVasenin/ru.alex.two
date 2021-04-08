@@ -2,6 +2,7 @@ package ru.alex.two.service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.alex.two.domain.User;
 import ru.alex.two.repository.UserRepository;
@@ -11,10 +12,11 @@ import java.util.List;
 @Service
 public class UserService {
 
-    Logger log = LogManager.getLogger(UserService.class);
+    private final Logger logger = LogManager.getLogger(UserService.class);
 
     private final UserRepository userRepository;
 
+    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -29,8 +31,8 @@ public class UserService {
         try {
             userRepository.save(user);
         } catch (Exception ex) {
-            log.error(ex);
-            log.error("Ошибка, проверте введные данные клиента");
+            logger.error(ex);
+            logger.error("Ошибка, проверте введные данные клиента");
         }
     }
 
@@ -56,8 +58,9 @@ public class UserService {
         try {
             return userRepository.getOne(id);
         } catch (Exception ex) {
-            log.error(ex);
-            log.error("Такого пользователя не существует, проверте введные " +
+            logger.error(ex);
+            logger.error("Такого пользователя не существует, проверте введные" +
+                    " " +
                     "данные");
         }
         return null;
@@ -94,7 +97,7 @@ public class UserService {
                 userRepository.deleteById(id);
             }
         } catch (Exception ex) {
-            log.error(ex);
+            logger.error(ex);
         }
     }
 }

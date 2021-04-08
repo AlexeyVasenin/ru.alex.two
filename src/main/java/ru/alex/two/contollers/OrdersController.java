@@ -1,5 +1,6 @@
 package ru.alex.two.contollers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ public class OrdersController {
 
     private final OrdersService ordersService;
 
+    @Autowired
     public OrdersController(OrdersService ordersService) {
         this.ordersService = ordersService;
     }
@@ -39,10 +41,10 @@ public class OrdersController {
     }
 
     @PostMapping()
-    public void add(@RequestParam Integer count,
-                    @RequestParam Double sumPrices,
-                    @RequestParam Double cost,
-                    @RequestParam String address) {
+    public void add(@RequestParam("count") Integer count,
+                    @RequestParam("sumPrice") Double sumPrices,
+                    @RequestParam("cost") Double cost,
+                    @RequestParam("address") String address) {
 
         Date dateCreate = new Date();
         Date dateClose = new Date();
