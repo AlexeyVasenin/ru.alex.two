@@ -1,5 +1,6 @@
 package ru.alex.two.contollers;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class PriceController {
         this.priceService = priceService;
     }
 
+    @ApiOperation("Запрос все позиций в меню")
     @GetMapping()
     public ResponseEntity<List<Price>> readAll() {
         final List<Price> priceListAll = priceService.readAll();
@@ -29,7 +31,8 @@ public class PriceController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/{id}")
+    @ApiOperation("Запрос одной позиции меню по id")
+    @GetMapping("/price/{id}")
     public ResponseEntity<Price> read(@PathVariable("id") Long id) {
         Price price = priceService.read(id);
         if (price == null) {
@@ -39,7 +42,8 @@ public class PriceController {
         }
     }
 
-    @PostMapping()
+    @ApiOperation("Добавление новых позиций")
+    @PostMapping("/add")
     public void creat(@RequestParam("isActual") Boolean isActual,
                       @RequestParam("name") String name,
                       @RequestParam("cost") Double cost,
@@ -51,7 +55,8 @@ public class PriceController {
         priceService.creat(price);
     }
 
-    @PutMapping("/{id}")
+    @ApiOperation("Обновлениие данных о позиции")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Price> update(@PathVariable("id") Long id,
                                         @RequestBody Price price) {
         Boolean updatePrice = priceService.update(id, price);

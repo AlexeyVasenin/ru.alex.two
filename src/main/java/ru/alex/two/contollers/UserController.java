@@ -32,7 +32,7 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @ApiOperation(value = "ЗАпрос пользователя по Id")
+    @ApiOperation(value = "Запрос пользователя по Id")
     @GetMapping("/user/{id}")
     public ResponseEntity<User> read(@PathVariable("id") Long id) {
         User user = userService.read(id);

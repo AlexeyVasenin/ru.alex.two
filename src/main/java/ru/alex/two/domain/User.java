@@ -1,8 +1,12 @@
 package ru.alex.two.domain;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
@@ -10,16 +14,20 @@ import javax.persistence.*;
 public class User {
 
     @Id
+    @JsonProperty("id")
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonProperty("name")
     @Column(name = "name")
     private String name;
 
+    @JsonProperty("number")
     @Column(name = "number")
     private String number;
 
+    @JsonIgnore
     @Column(name = "idd")
     private Integer idd;
 

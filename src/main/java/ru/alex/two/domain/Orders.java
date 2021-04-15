@@ -1,7 +1,6 @@
 package ru.alex.two.domain;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "orders")
@@ -34,19 +33,18 @@ public class Orders {
     private String address;
 
     @Column(name = "date_create")
-    private Date dateCreate;
+    private String dateCreate;
 
     @Column(name = "date_close")
-    private Date dateСlose;
+    private String dateСlose;
 
     public Orders(Integer count, Double sumPrices, Double cost,
-                  String address, Date dateCreate, Date dateСlose) {
+                  String address) {
         this.count = count;
         this.sumPrices = sumPrices;
         this.cost = cost;
         this.address = address;
-        this.dateCreate = dateCreate;
-        this.dateСlose = dateСlose;
+
     }
 
     public Orders() {
@@ -117,19 +115,19 @@ public class Orders {
         this.address = address;
     }
 
-    public Date getDateCreate() {
+    public String getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
     }
 
-    public Date getDateСlose() {
+    public String getDateСlose() {
         return dateСlose;
     }
 
-    public void setDateСlose(Date dateСlose) {
+    public void setDateСlose(String dateСlose) {
         this.dateСlose = dateСlose;
     }
 }

@@ -7,7 +7,7 @@
 
     <changeSet id="080421-1" author="alexey" runOnChange="true">
 
-        <preConditions onError="MARK_RAN">
+        <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="users"/>
             </not>
@@ -23,7 +23,7 @@
         </createTable>
 
         <rollback>
-            drop table users
+            DROP TABLE USERS
         </rollback>
     </changeSet>
 
@@ -48,7 +48,7 @@
         </createTable>
 
         <rollback>
-            drop table price
+            DROP TABLE PRICE
         </rollback>
     </changeSet>
 
@@ -69,7 +69,7 @@
         </createTable>
 
         <rollback>
-            drop table types
+            DROP TABLE TYPES
         </rollback>
     </changeSet>
 
@@ -96,7 +96,7 @@
         </createTable>
 
         <rollback>
-            drop table orders
+            DROP TABLE ORDERS
         </rollback>
     </changeSet>
 
