@@ -1,40 +1,22 @@
 package ru.alex.two.domain;
 
-import javax.persistence.*;
-import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "types")
 public class Types {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id")
     private Long id;
 
     @Column(name = "name", unique = true)
     private String name;
 
-    public Types(String name) {
-        this.name = name;
-    }
-
-    public Types() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

@@ -30,31 +30,6 @@
     <changeSet id="080421-2" author="alexey" runOnChange="true">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="price"/>
-            </not>
-        </preConditions>
-
-        <createTable tableName="price">
-            <column name="id" type="serial" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="idd" type="integer"/>
-            <column name="isactual" type="boolean"/>
-            <column name="name" type="varchar(15)"/>
-            <column name="cost" type="double"/>
-            <column name="weight" type="integer"/>
-            <column name="type_id" type="integer"/>
-            <column name="description" type="varchar(50)"/>
-        </createTable>
-
-        <rollback>
-            DROP TABLE PRICE
-        </rollback>
-    </changeSet>
-
-    <changeSet id="080421-3" author="alexey" runOnChange="true">
-        <preConditions onFail="MARK_RAN">
-            <not>
                 <tableExists tableName="types"/>
             </not>
         </preConditions>
@@ -73,6 +48,36 @@
         </rollback>
     </changeSet>
 
+
+    <changeSet id="080421-3" author="alexey" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="price"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="price">
+            <column name="id" type="serial" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="idd" type="integer"/>
+            <column name="isactual" type="boolean"/>
+            <column name="name" type="varchar(15)"/>
+            <column name="cost" type="double"/>
+            <column name="weight" type="integer"/>
+            <column name="type_id" type="integer">
+                <constraints foreignKeyName="fk_price_type"
+                             referencedTableName="types"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="description" type="varchar(50)"/>
+        </createTable>
+
+        <rollback>
+            DROP TABLE PRICE
+        </rollback>
+    </changeSet>
+
     <changeSet id="080421-4" author="alexey" runOnChange="true">
         <preConditions onFail="MARK_RAN">
             <not>
@@ -80,13 +85,23 @@
             </not>
         </preConditions>
 
+        <addUniqueConstraint tableName="orders" columnNames="id, date_create"/>
+
         <createTable tableName="orders">
-            <column name="id" type="integer" autoIncrement="true">
+            <column name="id" type="serial" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="idd" type="integer"/>
-            <column name="id_user" type="integer"/>
-            <column name="id_prices" type="integer"/>
+            <column name="user_id" type="integer">
+                <constraints foreignKeyName="fk_order_user"
+                             referencedTableName="users"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="price_id" type="integer">
+                <constraints foreignKeyName="fk_order_price"
+                             referencedTableName="price"
+                             referencedColumnNames="id"/>
+            </column>
             <column name="count" type="integer"/>
             <column name="sum_prices" type="double"/>
             <column name="cost" type="double"/>

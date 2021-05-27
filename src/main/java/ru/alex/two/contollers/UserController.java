@@ -1,10 +1,12 @@
 package ru.alex.two.contollers;
 
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.alex.two.domain.SimpleResult;
 import ru.alex.two.domain.User;
 import ru.alex.two.service.UserService;
 
@@ -12,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api")
 public class UserController {
 
 
@@ -24,49 +26,52 @@ public class UserController {
     }
 
     @ApiOperation(value = "Запросить всех зарегистрированых пользователей")
-    @GetMapping()
-    public ResponseEntity<List<User>> readAll() {
-        final List<User> users = userService.readAll();
-        return users != null && !users.isEmpty()
-                ? new ResponseEntity<>(users, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @GetMapping("/users/all")
+    @ResponseBody
+    public SimpleResult<List<User>> getAll() {
+        return new SimpleResult<>(userService.getAll());
     }
 
     @ApiOperation(value = "Запрос пользователя по Id")
-    @GetMapping("/user/{id}")
-    public ResponseEntity<User> read(@PathVariable("id") Long id) {
-        User user = userService.read(id);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        }
+    @GetMapping("/users/{id}")
+    @ResponseBody
+    public SimpleResult<User> getById(@PathVariable("id") String id) {
+        return new SimpleResult<>(userService.getOne(Long.parseLong(id)));
+    }
+
+    @Getter
+    @Setter
+    public static class SaveUserReqt {
+        private String name;
+        private String number;
     }
 
     @ApiOperation(value = "Регистрация нового пользователя")
-    @PostMapping("/add")
-    public void registration(@RequestParam("name") String name,
-                             @RequestParam("number") String number) {
-        User user = new User(name, number);
-        userService.creat(user);
+    @PostMapping("/users")
+    @ResponseBody
+    public SimpleResult<User> add(@RequestBody SaveUserReqt reqt) {
+        return new SimpleResult<>(userService.save(reqt));
     }
 
     @ApiOperation(value = "Обновление данных пользователя")
-    @PutMapping("/update/{id}")
-    public ResponseEntity<User> update(@PathVariable("id") Long id,
-                                       @RequestBody User user) {
-        Boolean updateUser = userService.update(id, user);
-        if (updateUser == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(user);
-        }
+    @PutMapping("/users")
+    @ResponseBody
+    public SimpleResult<User> update(@RequestBody User user) {
+        return new SimpleResult<>(userService.update(user));
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class DeleteUserResp {
+        private final long id;
+
     }
 
     @ApiOperation(value = "Удалить пользователя")
-    @DeleteMapping("/del/{id}")
-    public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
-        userService.delete(id);
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("/users/del/{id}")
+    @ResponseBody
+    public SimpleResult<DeleteUserResp> delete(@PathVariable String id) {
+        return new SimpleResult<>(new DeleteUserResp(userService.delete(Long.parseLong(id))));
     }
 }

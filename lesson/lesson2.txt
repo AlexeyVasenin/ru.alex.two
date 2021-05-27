@@ -32,15 +32,15 @@
 ---------------------------------------------
 --------table_4------------------------------
 * orders(
-        id(Integer)(f)
+        id(serial)(f)
         idd(integer)
         id_user(integer)
         id_prices(integer)
-        count(integer) | (количество позицй в чеке)
+        count(integer) | (количество позиций в чеке)
         sum_prices(double) | (общая сумма чека)
         cost(double) | (сумма каждой позиции)
         address(varchar(255)) | (адрес заказа)
-        date_create(date) | (дата окрыття заказа)
+        date_create(date) | (дата открытия заказа)
         date_close(date) | (дата закрытия заказа)
         )
 ---------------------------------------------

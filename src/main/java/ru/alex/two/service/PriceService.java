@@ -21,34 +21,4 @@ public class PriceService {
         this.priceRepository = priceRepository;
     }
 
-    public void creat(Price price) {
-        try {
-            priceRepository.save(price);
-        } catch (Exception ex) {
-            logger.error(ex);
-        }
-    }
-
-    public List<Price> readAll() {
-        return priceRepository.findAll();
-    }
-
-    public Price read(Long id) {
-        try {
-            return priceRepository.getOne(id);
-        } catch (Exception ex) {
-            logger.error(ex);
-        }
-        return null;
-    }
-
-    public Boolean update(Long id, Price price) {
-        if (priceRepository.existsById(id)) {
-            price.setId(id);
-            priceRepository.save(price);
-            return true;
-
-        }
-        return false;
-    }
 }

@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.alex.two.contollers.UserController;
 import ru.alex.two.domain.User;
 import ru.alex.two.repository.UserRepository;
 
@@ -23,17 +24,21 @@ public class UserService {
 
     /**
      * Создает нового клиента
-     *
-     * @param user клиент для создания
+     * *
      */
+    public User save(UserController.SaveUserReqt reqt) {
+        User user = new User();
+        user.setName(reqt.getName());
+        user.setNumber(reqt.getNumber());
+        return update(user);
 
-    public void creat(User user) {
-        try {
-            userRepository.save(user);
-        } catch (Exception ex) {
-            logger.error(ex);
-            logger.error("Ошибка, проверте введные данные клиента");
-        }
+    }
+
+    /**
+     * Обновляет клиента с заданным ID
+     */
+    public User update(User user) {
+        return userRepository.save(user);
     }
 
     /**
@@ -41,8 +46,7 @@ public class UserService {
      *
      * @return список клиентов
      */
-
-    public List<User> readAll() {
+    public List<User> getAll() {
         return userRepository.findAll();
     }
 
@@ -52,37 +56,17 @@ public class UserService {
      * @param id ID клиента
      * @return объект клиента с заданным ID
      */
-
-
-    public User read(Long id) {
+    public User getOne(Long id) {
         try {
-            return userRepository.getOne(id);
+            return userRepository.findById(id).orElseGet(() -> null);
         } catch (Exception ex) {
             logger.error(ex);
             logger.error("Такого пользователя не существует, проверте введные" +
-                    " " +
-                    "данные");
+                    " " + "данные");
         }
         return null;
     }
 
-    /**
-     * Обновляет клиента с заданным ID,
-     * в соответствии с переданным клиентом
-     *
-     * @param id   id клиента которого нужно обновить
-     * @param user клиент в соответсвии с которым нужно обновить данные
-     * @return true если данные были обновлены, иначе false
-     */
-
-    public Boolean update(Long id, User user) {
-        if (userRepository.existsById(id)) {
-            user.setId(id);
-            userRepository.save(user);
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Удаляет клиента с заданным ID
@@ -90,14 +74,8 @@ public class UserService {
      * @param id id клиента, которого нужно удалить
      * @return true если клиент был удален, иначе false
      */
-
-    public void delete(Long id) {
-        try {
-            if (userRepository.existsById(id)) {
-                userRepository.deleteById(id);
-            }
-        } catch (Exception ex) {
-            logger.error(ex);
-        }
+    public long delete(Long id) {
+        userRepository.deleteById(id);
+        return id;
     }
 }

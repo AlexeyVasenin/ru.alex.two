@@ -1,19 +1,22 @@
 package ru.alex.two.contollers;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import liquibase.pro.packaged.L;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.two.domain.Orders;
+import ru.alex.two.domain.SimpleResult;
 import ru.alex.two.service.OrdersService;
 
-import java.util.Date;
 import java.util.List;
 
-
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/")
 public class OrdersController {
 
     private final OrdersService ordersService;
@@ -23,46 +26,48 @@ public class OrdersController {
         this.ordersService = ordersService;
     }
 
-    @ApiOperation("Запрос всех заказов")
-    @GetMapping()
-    public ResponseEntity<List<Orders>> readAll() {
-        final List<Orders> orders = ordersService.readAll();
-        return orders != null && !orders.isEmpty()
-                ? new ResponseEntity<>(orders, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @ApiOperation("Получить список заказов")
+    @GetMapping("/orders")
+    @ResponseBody
+    public SimpleResult<List<Orders>> getAll() {
+        return new SimpleResult<>(ordersService.getAll());
     }
 
-    @ApiOperation("Запрос одного заказа по id")
-    @GetMapping("/order/{id}")
-    public ResponseEntity<Orders> read(@PathVariable("id") Long id) {
-        Orders orders = ordersService.read(id);
-        if (orders == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return new ResponseEntity<>(orders, HttpStatus.OK);
-        }
+    @Getter
+    @Setter
+    public static class SaveOrdersResp {
+        private Integer count;
+        private Double sumPrices;
+        private Double cost;
+        private String address;
+        private String dateCreate;
+        private String dateСlose;
     }
 
-    @ApiOperation("Регистрация нового заказа")
-    @PostMapping("/add")
-    public void add(@RequestParam("count") Integer count,
-                    @RequestParam("sumPrice") Double sumPrices,
-                    @RequestParam("cost") Double cost,
-                    @RequestParam("address") String address) {
-
-        Orders order = new Orders(count, sumPrices, cost, address);
-        ordersService.creat(order);
+    @ApiOperation("Создание заказа")
+    @PostMapping("/orders")
+    @ResponseBody
+    public SimpleResult<Orders> create(@PathVariable SaveOrdersResp resp) {
+        return new SimpleResult<>(ordersService.save(resp));
     }
 
-    @ApiOperation("Обновление заказа")
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Orders> update(@PathVariable("id") Long id,
-                                         @RequestBody Orders orders) {
-        Boolean updateOrders = ordersService.update(id, orders);
-        if (updateOrders == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(orders);
-        }
+    @ApiOperation("Обновить данные заказа")
+    @PutMapping("/orders")
+    @ResponseBody
+    public SimpleResult<Orders> update(@RequestBody Orders orders) {
+        return new SimpleResult<>(ordersService.update(orders));
+    }
+
+    @Getter
+    @Setter
+    public static class SortOrdersUsers {
+        private long id;
+    }
+
+    @ApiOperation("Сортировка заказа по пользователю")
+    @PostMapping("/orders/s/user")
+    @ResponseBody
+    public SimpleResult<List<Orders>> sortByUser(@RequestBody SortOrdersUsers sortOrdersUsers) {
+        return new SimpleResult<>(ordersService.findByUser(sortOrdersUsers.getId()));
     }
 }

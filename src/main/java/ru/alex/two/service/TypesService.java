@@ -21,28 +21,5 @@ public class TypesService {
         this.typesRepository = typesRepository;
     }
 
-    public void creat(Types types) {
-        try {
-            typesRepository.save(types);
-        } catch (Exception ex) {
-            logger.error(ex);
-        }
-    }
 
-    public List<Types> readAll() {
-        return typesRepository.findAll();
-    }
-
-    public Types read(Long id) {
-        return typesRepository.getOne(id);
-    }
-
-    public Boolean update(Long id, Types types) {
-        if (typesRepository.existsById(id)) {
-            types.setId(id);
-            typesRepository.save(types);
-            return true;
-        }
-        return false;
-    }
 }
