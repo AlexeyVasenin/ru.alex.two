@@ -8,6 +8,9 @@ import ru.alex.two.contollers.OrdersController;
 import ru.alex.two.domain.Orders;
 import ru.alex.two.repository.OrdersRepository;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -33,21 +36,28 @@ public class OrdersService {
 
     public Orders save(OrdersController.SaveOrdersResp resp) {
         Orders orders = new Orders();
+        String dateCrate =
+                new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss").format(Calendar.getInstance().getTime());
         orders.setCount(resp.getCount());
         orders.setSumPrices(resp.getSumPrices());
         orders.setCost(resp.getCost());
         orders.setAddress(resp.getAddress());
-        orders.setDateCreate(resp.getDateCreate());
-        orders.setDateCreate(resp.getDateСlose());
+        orders.setDateCreate(dateCrate);
+        orders.setStatus(true);
 
-        return orders;
-    }
-
-    public Orders update(Orders orders) {
         return ordersRepository.save(orders);
     }
 
-    public List<Orders> findByUser(Long id) {
+    public Orders update(OrdersController.UpdateOrdersStatus status) {
+        Orders updateOrders = ordersRepository.getOne(status.getId());
+        String dateClose =
+                new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss").format(Calendar.getInstance().getTime());
+        updateOrders.setStatus(status.getStatus());
+        updateOrders.setDateСlose(dateClose);
+        return ordersRepository.save(updateOrders);
+    }
+
+    public List<Orders> findByUser(Integer id) {
         return ordersRepository.findAllUsers(id);
     }
 

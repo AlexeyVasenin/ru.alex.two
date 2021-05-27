@@ -85,7 +85,7 @@
             </not>
         </preConditions>
 
-        <addUniqueConstraint tableName="orders" columnNames="id, date_create"/>
+
 
         <createTable tableName="orders">
             <column name="id" type="serial" autoIncrement="true">
@@ -106,8 +106,9 @@
             <column name="sum_prices" type="double"/>
             <column name="cost" type="double"/>
             <column name="address" type="varchar(255)"/>
-            <column name="date_create" type="date"/>
-            <column name="date_close" type="date"/>
+            <column name="status" type="boolean"/>
+            <column name="date_create" type="varchar(50)"/>
+            <column name="date_close" type="varchar(50)"/>
         </createTable>
 
         <rollback>

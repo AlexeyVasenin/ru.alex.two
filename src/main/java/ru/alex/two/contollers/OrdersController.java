@@ -40,31 +40,38 @@ public class OrdersController {
         private Double sumPrices;
         private Double cost;
         private String address;
-        private String dateCreate;
-        private String dateСlose;
+        private Boolean status;
+
     }
 
     @ApiOperation("Создание заказа")
     @PostMapping("/orders")
     @ResponseBody
-    public SimpleResult<Orders> create(@PathVariable SaveOrdersResp resp) {
+    public SimpleResult<Orders> create(@RequestBody SaveOrdersResp resp) {
         return new SimpleResult<>(ordersService.save(resp));
+    }
+
+    @Getter
+    @Setter
+    public static class UpdateOrdersStatus {
+        private long id;
+        private Boolean status;
     }
 
     @ApiOperation("Обновить данные заказа")
     @PutMapping("/orders")
     @ResponseBody
-    public SimpleResult<Orders> update(@RequestBody Orders orders) {
-        return new SimpleResult<>(ordersService.update(orders));
+    public SimpleResult<Orders> update(@RequestBody UpdateOrdersStatus status) {
+        return new SimpleResult<>(ordersService.update(status));
     }
 
     @Getter
     @Setter
     public static class SortOrdersUsers {
-        private long id;
+        private Integer id;
     }
 
-    @ApiOperation("Сортировка заказа по пользователю")
+    @ApiOperation("Сортировка заказа по id пользователя")
     @PostMapping("/orders/s/user")
     @ResponseBody
     public SimpleResult<List<Orders>> sortByUser(@RequestBody SortOrdersUsers sortOrdersUsers) {
