@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 // @JsonIgnoreProperties({"hibernateLazyInitializer"})
@@ -31,4 +32,8 @@ public class User {
 
     @Column(name = "idd")
     private Integer idd;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    Set<Role> roles;
 }

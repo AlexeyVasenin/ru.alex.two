@@ -5,5 +5,6 @@ import ru.alex.two.domain.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    User findByNumber(String number);
 
 }

@@ -3,6 +3,9 @@ package ru.alex.two.service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.alex.two.contollers.UserController;
 import ru.alex.two.domain.User;
@@ -11,7 +14,7 @@ import ru.alex.two.repository.UserRepository;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final Logger logger = LogManager.getLogger(UserService.class);
 
@@ -24,14 +27,14 @@ public class UserService {
 
     /**
      * Создает нового клиента
-     * *
+     *
      */
     public User save(UserController.SaveUserReqt reqt) {
         User user = new User();
         user.setName(reqt.getName());
         user.setNumber(reqt.getNumber());
+        user.setIdd(user.getIdd() + 1);
         return update(user);
-
     }
 
     /**
@@ -78,4 +81,15 @@ public class UserService {
         userRepository.deleteById(id);
         return id;
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String number) throws UsernameNotFoundException {
+        User user = userRepository.findByNumber(number);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        return user;
+    }
+
 }

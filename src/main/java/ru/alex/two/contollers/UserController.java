@@ -17,7 +17,6 @@ import java.util.List;
 @RequestMapping("/api")
 public class UserController {
 
-
     private final UserService userService;
 
     @Autowired
@@ -44,6 +43,7 @@ public class UserController {
     public static class SaveUserReqt {
         private String name;
         private String number;
+        private int idd;
     }
 
     @ApiOperation(value = "Регистрация нового пользователя")

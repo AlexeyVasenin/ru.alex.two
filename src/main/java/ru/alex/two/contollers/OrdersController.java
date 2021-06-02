@@ -1,12 +1,7 @@
 package ru.alex.two.contollers;
-
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import liquibase.pro.packaged.L;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.two.domain.Orders;
@@ -27,7 +22,7 @@ public class OrdersController {
     }
 
     @ApiOperation("Получить список заказов")
-    @GetMapping("/orders")
+    @GetMapping("/orders/all")
     @ResponseBody
     public SimpleResult<List<Orders>> getAll() {
         return new SimpleResult<>(ordersService.getAll());
