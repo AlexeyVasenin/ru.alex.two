@@ -44,22 +44,22 @@
 <header th:insert="~{index::header}"></header>
 
 <main class="form-signin">
-    <form>
+    <form th:action="@{/users}" method="post">
         <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
 
         <div class="form-floating mb-3">
             <input type="text" class="form-control" id="floatingInput"
-                   placeholder="login">
-            <label for="floatingInput">Введите логин</label>
+                   placeholder="Имя">
+            <label for="floatingInput">Введите имя</label>
         </div>
         <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingPassword"
-                   placeholder="Password">
-            <label for="floatingPassword">Пароль</label>
+            <input type="tel" class="form-control" id="floatingPassword"
+                   placeholder="Номер телефона">
+            <label for="floatingPassword">Номер телефона</label>
         </div>
 
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Регистрация
         </button>
     </form>
 </main>
