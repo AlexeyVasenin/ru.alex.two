@@ -22,21 +22,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable();
-        http
+       /* http
                 .authorizeRequests()
-                .antMatchers("/", "/index", "swagger-ui.html").permitAll()
+                    .antMatchers("/", "/index", "/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/signin")
-                .permitAll()
+                    .formLogin()
+                    .loginPage("/regis")
+                    .defaultSuccessUrl("/")
+                    .permitAll()
                 .and()
-                .logout()
-                .permitAll();
+                    .logout()
+                    .permitAll()
+                    .logoutSuccessUrl("/");*/
     }
 
 
-    @Override
+   /* @Override
     @Bean
     public UserDetailsService userDetailsService() {
         return new InMemoryUserDetailsManager(
@@ -57,5 +59,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected PasswordEncoder encode() {
         return new BCryptPasswordEncoder();
     }
-
+*/
 }
