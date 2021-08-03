@@ -13,5 +13,11 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");
     }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/signin").setViewName("signin");
+    }
+
 }
 
