@@ -36,20 +36,21 @@
         }
     </style>
 
+    <link rel="stylesheet" href="../static/css/signin.css">
+
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/signin.css">
 </head>
-<body class="text-center">
+<main class="text-center">
 
-<header th:insert="~{index::header}"></header>
+    <header th:insert="~{index :: header-nav}"></header>
 
-<main class="form-signin">
-    <form th:action="@{/login}" method="post">
-        <h1 class="h3 mb-3 fw-normal">Вход</h1>
+    <main class="form-signin">
+        <form th:action="@{/login}" method="post">
+            <h1 class="h3 mb-3 fw-normal">Вход</h1>
 
-        <div class="form-floating mb-3">
-            <input th:name="login" type="text" class="form-control"
-                   id="floatingInput"
+            <div class="form-floating mb-3">
+                <input th:name="login" type="text" class="form-control"
+                       id="floatingInput"
                    placeholder="Введите имя">
             <label for="floatingInput">Введите имя</label>
         </div>
@@ -65,11 +66,11 @@
                 <input type="checkbox" value="remember-me"> Запомнить меня
             </label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Войти
-        </button>
-    </form>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Войти
+            </button>
+        </form>
+    </main>
+
+
 </main>
-
-
-</body>
 </html>
