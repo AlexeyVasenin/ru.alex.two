@@ -7,6 +7,8 @@
 </head>
 <main>
     <header th:insert="~{index :: header-nav}"></header>
-
+    <form th:action="@{/logout}">
+        <input type="submit" value="Sing Out"/>
+    </form>
 </main>
 </html>

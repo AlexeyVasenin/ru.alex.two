@@ -29,16 +29,16 @@
     <header th:insert="~{index :: header-nav}"></header>
 
     <div class="form-signin">
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{/signin}" method="post">
             <h1 class="h3 mb-3 fw-normal">Вход</h1>
             <div class="form-floating mb-3">
-                <input th:name="login" type="text" class="form-control"
+                <input name="login" type="text" class="form-control"
                        id="floatingInput"
                        placeholder="Введите имя">
                 <label for="floatingInput">Введите имя</label>
             </div>
             <div class="form-floating">
-                <input th:name="pass" type="tel" class="form-control"
+                <input name="pass" type="text" class="form-control"
                        id="floatingPassword"
                        placeholder="Password">
                 <label for="floatingPassword">Номер телефона</label>

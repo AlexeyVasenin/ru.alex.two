@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/swagger-ui.html", "/regis").permitAll()
+                .antMatchers("/", "/swagger-ui.html", "/regis").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -35,28 +35,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
-
     @Override
     @Bean
     public UserDetailsService userDetailsService() {
         return new InMemoryUserDetailsManager(
-                User.builder()
+               /* User.builder()
                         .username("admin")
                         .password(encode().encode("admin"))
                         .roles(Role.AMDIN.name())
-                        .build(),
+                        .build(),*/
 
                 User.builder()
                         .username("user")
-                        .password(encode().encode("user"))
-                        .roles(Role.USER.name())
+                        .password("8909")
+                        .roles("USER")
                         .build()
         );
     }
 
-    @Bean
+   /* @Bean
     protected PasswordEncoder encode() {
         return new BCryptPasswordEncoder();
-    }
+    }*/
 
 }

@@ -22,4 +22,9 @@ public class IndexController {
     public String signin() {
         return "signin";
     }
+
+    @GetMapping("/account")
+    public String account() {
+        return "account";
+    }
 }

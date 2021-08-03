@@ -44,7 +44,11 @@
                                aria-disabled="true">Disabled</a>
                         </li>
                     </ul>
+                    <div>
+                        <a class="nav-link" th:href="@{/account}">Аккаунт</a>
+                    </div>
                     <div class="btn-sign_regis">
+
                         <a th:href="@{/signin}"
                            class="btn btn-outline-success">Войти</a>
                         <a th:href="@{/regis}" class="btn btn-outline-primary">Регистрация</a>
@@ -54,7 +58,11 @@
         </nav>
     </header>
 
-    <footer class="footer"></footer>
+    <footer th:fragment="footer"
+            class="pt-3 mt-4 mb-4 text-muted border-top footer">
+        &copy; 2021 Admin Service by AUTH3
+    </footer>
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
