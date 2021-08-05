@@ -10,6 +10,8 @@ import ru.alex.two.domain.SimpleResult;
 import ru.alex.two.domain.User;
 import ru.alex.two.service.UserService;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 
@@ -43,20 +45,25 @@ public class UserController {
     @Setter
     public static class SaveUserReqt {
         private String name;
+
+        @Pattern(regexp = "\\+7[0-9]{10}", message = "Телефонный номер должен начинаться с +7, " +
+                "затем " +
+                "-" +
+                " 10 цифр")
         private String number;
     }
 
     @ApiOperation(value = "Регистрация нового пользователя")
     @PostMapping("/users")
     @ResponseBody
-    public SimpleResult<User> add(@RequestBody SaveUserReqt reqt) {
+    public SimpleResult<Object> add(@RequestBody @Valid SaveUserReqt reqt) {
         return new SimpleResult<>(userService.save(reqt));
     }
 
     @ApiOperation(value = "Обновление данных пользователя")
     @PutMapping("/users")
     @ResponseBody
-    public SimpleResult<User> update(@RequestBody User user) {
+    public SimpleResult<User> update(@RequestBody @Valid User user) {
         return new SimpleResult<>(userService.update(user));
     }
 
