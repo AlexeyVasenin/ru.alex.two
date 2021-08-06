@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:13.3-alpine
+    entrypoint:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      apps
+
+    app:
+    build:
+      context: cafe
+      dockerfile: Dockerfile
+
+networks:
+  apps:
+    driver: bridge
+
