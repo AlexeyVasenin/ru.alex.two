@@ -3,18 +3,32 @@ version: '3.8'
 services:
   database:
     image: postgres:13.3-alpine
+    container_name: cafe_db
+    ports:
+      - 5425:5432
     entrypoint:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=cafe
     networks:
-      apps
+      apps-net: { - aliases:
+                      - database.apps-net }
 
-    app:
+  app:
+    image: 'docker-spring-boot-postgres:latest'
     build:
-      context: cafe
+      context: .
       dockerfile: Dockerfile
+    container_name: app
+    depends_on:
+      - cafe
+    ports:
+      - 8080:8080
+    networks:
+      apps-net: { - aliases:
+                      - app.apps-net }
 
 networks:
-  apps:
+  apps-net:
     driver: bridge
 
