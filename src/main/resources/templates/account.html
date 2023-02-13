@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<main>
+    <header th:insert="~{index :: header-nav}"></header>
+    <form th:action="@{/logout}">
+        <input type="submit" value="Sing Out"/>
+    </form>
+</main>
+</html>

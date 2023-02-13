@@ -9,6 +9,7 @@ import ru.alex.two.domain.User;
 import ru.alex.two.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -25,13 +26,18 @@ public class UserService {
     /**
      * Создает нового клиента
      * *
+     *
+     * @return
      */
-    public User save(UserController.SaveUserReqt reqt) {
+    public Object save(UserController.SaveUserReqt reqt) {
         User user = new User();
-        user.setName(reqt.getName());
-        user.setNumber(reqt.getNumber());
-        return update(user);
-
+        Optional<User> numberUser =
+                userRepository.findAll().stream().filter(u -> u.getNumber().equals(reqt.getNumber())).findFirst();
+        if (!numberUser.isPresent()) {
+            user.setName(reqt.getName());
+            user.setNumber(reqt.getNumber());
+            return update(user);
+        } else return "Пользователь с таким номером уже существует";
     }
 
     /**
