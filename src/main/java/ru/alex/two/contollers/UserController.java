@@ -10,6 +10,7 @@ import ru.alex.two.domain.SimpleResult;
 import ru.alex.two.domain.User;
 import ru.alex.two.service.UserService;
 
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 
