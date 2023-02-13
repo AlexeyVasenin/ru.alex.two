@@ -16,7 +16,7 @@ import ru.alex.two.service.OrdersService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api.order")
 public class OrdersController {
 
     private final OrdersService ordersService;
@@ -45,7 +45,7 @@ public class OrdersController {
     }
 
     @ApiOperation("Создание заказа")
-    @PostMapping("/orders")
+    @PostMapping("/add")
     @ResponseBody
     public SimpleResult<Orders> create(@RequestBody SaveOrdersResp resp) {
         return new SimpleResult<>(ordersService.save(resp));
@@ -59,7 +59,7 @@ public class OrdersController {
     }
 
     @ApiOperation("Обновить данные заказа")
-    @PutMapping("/orders")
+    @PutMapping("/add")
     @ResponseBody
     public SimpleResult<Orders> update(@RequestBody UpdateOrdersStatus status) {
         return new SimpleResult<>(ordersService.update(status));
@@ -72,7 +72,7 @@ public class OrdersController {
     }
 
     @ApiOperation("Сортировка заказа по id пользователя")
-    @PostMapping("/orders/s/user")
+    @PostMapping("/search")
     @ResponseBody
     public SimpleResult<List<Orders>> sortByUser(@RequestBody SortOrdersUsers sortOrdersUsers) {
         return new SimpleResult<>(ordersService.findByUser(sortOrdersUsers.getId()));

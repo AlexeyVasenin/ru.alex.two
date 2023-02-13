@@ -26,6 +26,7 @@ public class User {
     @Column(name = "name")
     private String name;
 
+    @Pattern(regexp = "\\+7[0-9]{10}", message = "Телефонный номер должен начинаться с +7, затем - 10 цифр")
     @Column(name = "number")
     private String number;
 

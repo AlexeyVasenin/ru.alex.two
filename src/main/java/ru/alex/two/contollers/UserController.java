@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api.user")
 public class UserController {
 
 
@@ -25,15 +25,15 @@ public class UserController {
         this.userService = userService;
     }
 
-    @ApiOperation(value = "Запросить всех зарегистрированых пользователей")
-    @GetMapping("/users/all")
+    @ApiOperation(value = "Запросить всех зарегистрированных пользователей")
+    @GetMapping("/get/all")
     @ResponseBody
     public SimpleResult<List<User>> getAll() {
         return new SimpleResult<>(userService.getAll());
     }
 
     @ApiOperation(value = "Запрос пользователя по Id")
-    @GetMapping("/users/{id}")
+    @GetMapping("/get/{id}")
     @ResponseBody
     public SimpleResult<User> getById(@PathVariable("id") String id) {
         return new SimpleResult<>(userService.getOne(Long.parseLong(id)));
@@ -43,18 +43,20 @@ public class UserController {
     @Setter
     public static class SaveUserReqt {
         private String name;
+
+        @Pattern(regexp = "\\+7[0-9]{10}", message = "Телефонный номер должен начинаться с +7, затем - 10 цифр")
         private String number;
     }
 
     @ApiOperation(value = "Регистрация нового пользователя")
-    @PostMapping("/users")
+    @PostMapping("/add")
     @ResponseBody
     public SimpleResult<User> add(@RequestBody SaveUserReqt reqt) {
         return new SimpleResult<>(userService.save(reqt));
     }
 
     @ApiOperation(value = "Обновление данных пользователя")
-    @PutMapping("/users")
+    @PutMapping("/add")
     @ResponseBody
     public SimpleResult<User> update(@RequestBody User user) {
         return new SimpleResult<>(userService.update(user));
@@ -69,7 +71,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "Удалить пользователя")
-    @DeleteMapping("/users/del/{id}")
+    @DeleteMapping("/del/{id}")
     @ResponseBody
     public SimpleResult<DeleteUserResp> delete(@PathVariable String id) {
         return new SimpleResult<>(new DeleteUserResp(userService.delete(Long.parseLong(id))));
